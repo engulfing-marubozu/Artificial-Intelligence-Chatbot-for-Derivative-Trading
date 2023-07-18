@@ -19,17 +19,16 @@ let Main = () => {
     let [isBotTyping, setisBotTyping] = useState(false);
     let [transienttext, settransienttex] = useState('');
     let handleSendMessage = async () => {
-        if(userInput=='')
-          {
+        if (userInput == '') {
             alert("please enter your query first.")
-           return;
-          }
+            return;
+        }
         if (userInput.trim() === '') {
             alert("please enter your query first.")
             return;
         }
         if (userInput.endsWith('\n')) {
-            userInput =userInput.slice(0, -1);
+            userInput = userInput.slice(0, -1);
         }
         settransienttex(userInput);
         setUserInput('');
@@ -63,7 +62,7 @@ let Main = () => {
 
     let getBotResponse = async (userInput) => {
         setisBotTyping(true)
-     //    await sleep(2000)
+        //    await sleep(2000)
         let reply = await getResponse(userInput)
         setisBotTyping(false)
         return reply;
@@ -97,67 +96,83 @@ let Main = () => {
                         marginBottom: '350px',
                         width: '100%'
                     }}>
-                    {messages.map((conversation, index) => (
-                        <Box key={index}
-                        >
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    flexDirection: 'column',
-                                }}>
+                    {!messages.length && !isBotTyping ?
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                 height: '80vh',
+                                color: theme.palette.secondary.main
+                            }}
+                        >       <div
+                            className="mainLogo"
+                            style={{
+                                marginBottom: '20px',
+                            }}></div>
+                            <Typography variant='h1' > ATS Genius </Typography>
+                        </div> : messages.map((conversation, index) => (
+                            <Box key={index}
+                            >
                                 <div
                                     style={{
                                         display: 'flex',
-                                        flexDirection: 'row'
+                                        alignItems: 'center',
+                                        flexDirection: 'column',
                                     }}>
                                     <div
                                         style={{
-                                            padding: '22px 15px 0px 0px',
-                                        }}><AccountCircleIcon sx={{ fontSize: 35, color: theme.palette.primary.main }} /> </div>
+                                            display: 'flex',
+                                            flexDirection: 'row'
+                                        }}>
+                                        <div
+                                            style={{
+                                                padding: '22px 15px 0px 0px',
+                                            }}><AccountCircleIcon sx={{ fontSize: 35, color: theme.palette.primary.main }} /> </div>
 
-                                    <Typography
-                                        sx={{
-                                            width: '700px',
-                                            padding: '25px 0px 25px 0px',
-                                            wordWrap: 'break-word'                       // bade kam ki cheez
-                                        }}
-                                    >  {conversation.userMessage.content}</Typography>
+                                        <Typography
+                                            sx={{
+                                                width: '700px',
+                                                padding: '25px 0px 25px 0px',
+                                                wordWrap: 'break-word'                       // bade kam ki cheez
+                                            }}
+                                        >  {conversation.userMessage.content}</Typography>
+                                    </div>
                                 </div>
-                            </div>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    flexDirection: 'column',
-                                    backgroundColor: '#ecf2f9'
-                                }}>   <div
+                                <div
                                     style={{
                                         display: 'flex',
-                                        flexDirection: 'row',
-
-                                    }}>
-                                    <div
-                                        className="logo"
+                                        alignItems: 'center',
+                                        flexDirection: 'column',
+                                        backgroundColor: '#ecf2f9'
+                                    }}>   <div
                                         style={{
-                                            margin: '22px 15px 0px 0px',
-                                            borderRadius: '15px'
-                                        }}></div>
-                                    <Typography
-                                        sx={{
-                                            width: '700px',
-                                            padding: '25px 0px 25px 0px',
-                                        }}
-                                    >
-                                        <Typewriter
-                                            words={[conversation.botMessage.content]}
-                                            typeSpeed={1}
-                                            loop={1}
-                                        /></Typography>
+                                            display: 'flex',
+                                            flexDirection: 'row',
+
+                                        }}>
+                                        <div
+                                            className="logo"
+                                            style={{
+                                                margin: '22px 15px 0px 0px',
+                                                borderRadius: '15px'
+                                            }}></div>
+                                        <Typography
+                                            sx={{
+                                                width: '700px',
+                                                padding: '25px 0px 25px 0px',
+                                            }}
+                                        >
+                                            <Typewriter
+                                                words={[conversation.botMessage.content]}
+                                                typeSpeed={1}
+                                                loop={1}
+                                            /></Typography>
+                                    </div>
                                 </div>
-                            </div>
-                        </Box>
-                    ))}
+                            </Box>
+                        ))}
                     {isBotTyping &&
                         <div>
                             <div
@@ -212,7 +227,7 @@ let Main = () => {
                                         className="typing-indicator"
                                     > <Box class="typing-effect"><Box class="dot-1"><FiberManualRecordIcon sx={{ fontSize: '7px' }} /></Box><Box class="dot-2"><FiberManualRecordIcon sx={{ fontSize: '7px' }} /></Box><Box class="dot-3"><FiberManualRecordIcon sx={{ fontSize: '7px' }} /></Box></Box></Typography>
                                 </div>
-                          </div>
+                            </div>
                         </div>
                     }
                 </div>
@@ -236,8 +251,8 @@ let Main = () => {
                         placeholder="Send a message"
                         value={userInput}
                         type="text"
-                         onChange={(e) => setUserInput(e.target.value)}
-                         onKeyUp={handleKeyUp}
+                        onChange={(e) => setUserInput(e.target.value)}
+                        onKeyUp={handleKeyUp}
                     />
                     <Button variant="outlined"
                         onClick={handleSendMessage}
@@ -252,8 +267,8 @@ let Main = () => {
                             position: 'absolute',
                             bottom: '3px',
                             right: '-70px',
-                            fontSize:'1rem',
-                            padding:'3px'
+                            fontSize: '1rem',
+                            padding: '3px'
                         }}  >Send</Button>
 
                 </Box>

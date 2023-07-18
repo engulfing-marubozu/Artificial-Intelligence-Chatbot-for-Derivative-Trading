@@ -6,6 +6,12 @@
 
 }
 
+.mainLogo{
+  height: 200px;
+  width: 200px;
+  background-image: url("../mainLogo.png");
+  background-size: cover;
+}
 .typing-effect {
   display: inline-block;
 }
