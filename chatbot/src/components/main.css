@@ -1,0 +1,43 @@
+.logo{
+    height: 30px;
+    width: 30px;
+    background-image: url("logo.jpg");
+    background-size: cover;
+
+}
+
+.typing-effect {
+  display: inline-block;
+}
+
+@keyframes typing {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.dot-1,
+.dot-2,
+.dot-3 {
+  display: inline-block;
+  animation: typing 1s infinite;
+
+}
+
+.dot-1 {
+  animation-delay: 0s;
+}
+
+.dot-2 {
+  animation-delay: 0.5s;
+}
+
+.dot-3 {
+  animation-delay: 1s;
+}

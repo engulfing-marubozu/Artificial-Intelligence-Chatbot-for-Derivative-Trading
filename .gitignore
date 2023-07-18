@@ -1,0 +1,16 @@
+# Ignore node_modules directory
+**/node_modules/
+
+# Ignore other files and directories
+build/
+*.log
+
+.vscode/
+.idea/
+*.exe
+*.dll
+package-lock.json
+yarn.lock
+secrets.txt
+credentials.json
+*~
