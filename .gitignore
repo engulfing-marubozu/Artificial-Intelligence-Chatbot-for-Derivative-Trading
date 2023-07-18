@@ -13,5 +13,5 @@ package-lock.json
 yarn.lock
 secrets.txt
 credentials.json
-.env
+**/.env
 *~
