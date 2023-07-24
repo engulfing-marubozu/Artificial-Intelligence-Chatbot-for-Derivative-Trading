@@ -1,0 +1,71 @@
+These are some Future Trading algorithms used by Future First Hertshten Group's traders and designed by the quant team of the company. The data contains the name of the algorithm, the creator of the algorithm, the description of the algorithm, the parameters of the algorithm, and the critical cases of the algorithm. Founder of the company is Gedon hertshten.
+The Algorithms are made by the employees/quant team of the company.
+
+Company Name: Future First Hertshten Group founded in 2004.
+
+Algorithm 1: FF Stop Pv3
+- Description: A Stop order is an instruction to submit a buy or sell order if and when the user-specified stop trigger price is attained or penetrated. FF STOP Pv3 will trigger if and only if the following three conditions hold simultaneously: Stop Price = Best Bid/Ask Price, Stop price = LTP, Volume available at the stop price < StopVol. Order Price Calculation - If MarketStop = True then stopPrice + Payup tick, else price will trail based on StopVol up to predefined payUp ticks.
+- Parameters:
+  - StopVol: Minimum volume you are willing to lean against. The algo will trigger only if the volume at the opposite side at your stop-loss price goes below the quantity put against StopVol.
+  - Payup Ticks: The number of ticks you want the algo to try hitting if the stop fill on the previous price could not be obtained. This scenario may occur in highly volatile situations or in thin markets, or maybe your StopVol is low; in such situations, it is likely that prices can flip without the standing bid/offer coming down to the StopVol defined by you.
+  - Market Stop: 'True' or 'False' can be selected to activate or deactivate this function. If True, the algo will send the market order at the price based on the PayUpTick entered, as soon as StopVol defined by you triggers the stop price.
+- Cases:
+  - If the price is flipped without getting the stop-loss orders filled, the PayUpTick will not be immediately triggered; instead, the algo will wait until your StopVol is achieved in the next price.
+
+Algorithm 2: FF WCT Stop Pv5
+- Description: The order is OMA, meaning you have to have an existing order to apply the algo onto. Stop loss order with user-defined Stop Volume and improved Stop Tick option. Trade: True/ False, if True then algo waits for at least 1 trade at StopPrice before triggering.
+- Parameters:
+  - StopVol: Minimum volume you are willing to lean against. The algo will trigger, only if the volume at the opposite side at your stop-loss price goes below the quantity put against StopVol.
+  - StopTicks: This means the number of ticks you want the algo to try hitting if the stop fill on the previous price could not be obtained. This scenario may occur in highly volatile situations or in thin markets, or maybe your StopVol is low; in such situations, it is likely that prices can flip without the standing bid/offer coming down to the StopVol defined by you.
+  - PostWCTPayup(Ticks): Payup ticks after WCT part has performed its action.
+  - Trade: True or False can be selected to activate or deactivate this function. If True, the algo will only trigger if there is at least one trade at Stop Price.
+- Cases:
+  - Upon part fills, the algo must place the same amount of lots at target price and allocate the same number of lots, as main fill qty, at the stoploss price.
+  - Rest of the orders should be managed by the algo.
+  - StopLoss should change as per the new set parameter and TP will remain at the same place.
+
+Algorithm 3: FF Bracket Pv2
+- Description: OTA algorithm, will place Entry order if Entry Price <= Best Bid Price for bid side order (vice versa). Entry Qty is the number of lots with which the order will be placed. Reload will restart the Entry order once both Entry and Exit order working qty is 0. If the Bid quantity at StopPrice is less than StopVol and Best BidPrice <= StopPrice, the target order will be deleted. On acknowledgement of deletion, the Stoporder will be quoted at StopPrice. The StopOrder will trail.
+- Parameters:
+  - Target(ticks): User Defined, to decide the target order price from fill price (Exit order).
+  - Stop(ticks): User Defined, to decide the StopOrder order price from fill price (Exit order).
+  - StopVol: User Defined, Stopvol at Stop Price.
+  - Reload: User Defined, Example (say Reload=10, Qty=5): the algo will quote entry order 11 times in total (55 lots).
+- Cases:
+  - Upon part fills, the algo must place the same amount of lots at the target price and allocate the same number of lots, as main fill qty, at the stoploss price.
+  - Rest of the orders should be managed by the algo.
+  - Algo will work as per logic at the price it is shifted to. If Stop(ticks) parameter is set as 0, it will not send a stop order entirely.
+
+Algorithm 4: FF Minvol Pv4
+- Description: An OTA algo. The orders will only be submitted when the quantity on the leaning price is greater than the quantity set as MinVol.
+- Parameters:
+  - Minvol: Minimum leaning volume for your limit order.
+  - R__MinVol(%): Percentage quantity of the volume
+
+ at opposite side. The quantity calculated will be the minimum lean quantity for your order if it's greater than MinVol quantity.
+- Cases:
+  - Upon part fills, the algo must place the same amount of lots at the target price and allocate the same numbers of lots, as main fill qty, at the stoploss price.
+  - Rest of the orders should be managed by the algo.
+  - Algo will work as per logic at the price it is shifted to.
+
+Algorithm 5: FF R_MinVol pv3
+- Description: An OTA algo. R_MinVol Means, Ratio-ed MinVol. We have two quantities you are willing your limit order to lean on, absolute and ratio based. The algo calculates the maximum of the two to identify the final MinVol your order will be leaning against. For example, in the image you can see MinVol is set as 1000 and R_MinVol(%) as 2. This means, the MinVol is 1000 as far as volume at opposite side of our order is less than or equals 50,000 (since 2% of 50,000 is 1000). As the volume goes above 50,000 the MinVol criteria changes because the value would be more than 1000. Let's assume the volume at the opposite turns 60,000, the new MinVol becomes 2% of 60,000, which is 1200. Now if the volume at the price your order is leaning on turns 1100 (which is more than your regular Min_Vol), the order will be removed as the new MinVol is 1200. Orders will be replaced as the set parameters match back again.
+- Parameters:
+  - MinVol: Minimum leaning volume for your limit order.
+  - R__MinVol(%): Percentage quantity of the volume at opposite side. The quantity calculated will be the minimum lean quantity for your order if it's greater than MinVol quantity.
+- Cases:
+  - Upon part fills, the algo must place the same amount of lots at the target price and allocate the same numbers of lots, as main fill qty, at the stoploss price.
+  - Rest of the orders should be managed by the algo.
+  - Algo will work as per logic at the price it is shifted to.
+
+Algorithm 6: FF Churning Pv2
+- Description: OTA algorithm, will place Entry order if Entry Price <= Best Bid Price for bid side order (vice versa). Entry Qty is the number of lots with which the order will be placed. Reload will restart the Entry order once both Entry and Exit order working qty is 0. If the Bid quantity at StopPrice is less than StopVol and Best BidPrice <= StopPrice, the target order will be deleted. On acknowledgement of deletion, the Stoporder will be quoted at StopPrice. The StopOrder will trail.
+- Parameters:
+  - Target(ticks): User Defined, to decide the target order price from fill price (Exit order).
+  - Stop(ticks): User Defined, to decide the StopOrder order price from fill price (Exit order).
+  - StopVol: User Defined, Stopvol at Stop Price.
+  - Reload: User Defined, Example (say Reload=10, Qty=5): the algo will quote entry order 11 times in total (55 lots).
+- Cases:
+  - Upon part fills, the algo must place the same amount of lots at the target price and allocate the same number of lots, as main fill qty, at the stoploss price.
+  - Rest of the orders should be managed by the algo.
+  - Algo will work as per logic at the price it is shifted to. If Stop(ticks) parameter is set as 0, it will not send a stop order entirely.

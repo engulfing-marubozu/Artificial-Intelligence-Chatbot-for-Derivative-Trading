@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getSpecificAlgo } from '../../apiCalls';
-import { Container, Box, useTheme} from '@mui/material';
+import { Container, Box, useTheme, Typography, Button } from '@mui/material';
 const ViewSpecificAlgo = () => {
+    const navigate = useNavigate();
     const theme = useTheme()
     console.log("component mouting")
     const params = useParams();
@@ -14,11 +15,9 @@ const ViewSpecificAlgo = () => {
             setalgo(res.data);
             console.log(res.data);
         }
-       backendCall();    
-    }, []);
-    setTimeout(() => {
-        alert("work in progress.")
-    }, 1000);
+        backendCall();
+    }, [params.algoId]);
+
     return (
         <Container maxWidth="sm"
             style={{
@@ -31,97 +30,134 @@ const ViewSpecificAlgo = () => {
                 flexDirection: 'column'
 
             }}>
-        <box>
-            <Box
-                sx={{
-                    backgroundColor: theme.palette.secondary.main,
-                    width:'50px',
-                    marginBottom: '10px',
-                    color: 'white'
-                }}>
-                Name
-            </Box>
-            <Box
-                sx={{
-                    backgroundColor: 'white',
-                    width: '50vw',
-                    marginBottom: '10px'
-                }}>
-                {algo.algoName}
-            </Box>
-            <Box
-                sx={{
-                    backgroundColor: theme.palette.secondary.main,
-                    width: '50vw',
-                    marginBottom: '10px',
-                    color: 'white',
-                    width:'100px',
-                }}>
-                Uploaded By
-            </Box>
-            <Box
-                sx={{
-                    backgroundColor: 'white',
-                    width: '50vw',
-                    marginBottom: '10px'
-                }}>
-                {algo.uploadedBy}
-            </Box>
-            <Box
-                sx={{
-                    backgroundColor: theme.palette.secondary.main,
-                    width: '50vw',
-                    marginBottom: '10px',
-                    color: 'white',
-                    width:'80px',
-                }}>
-                Descrption
-            </Box>
-            <Box
-                sx={{
-                    backgroundColor: 'white',
-                    width: '50vw',
-                    marginBottom: '10px'
-                }}>
-                {algo.description}
-            </Box>
-            <Box
-                sx={{
-                    backgroundColor: theme.palette.secondary.main,
-                    width: '50vw',
-                    marginBottom: '10px',
-                    color: 'white',
-                    width:'80px',
-                }}>
-                Parameters
+            <Box sx={{
+                marginTop: '50px',
+                marginBottom: '50px'
+            }}>
+                <Box
+                    sx={{
+                        backgroundColor: theme.palette.secondary.main,
+                        width: '50px',
+                        marginBottom: '10px',
+                        color: 'white',
+                        padding: '10px',
+                        borderRadius: '4px'
+                    }}>
+                    Name
+                </Box>
+                <Box
+                    sx={{
+                        backgroundColor: 'white',
+                        width: '50vw',
+                        marginBottom: '40px',
+                        padding: '10px',
+                        borderRadius: '4px'
+                    }}>
+                    {algo.algoName}
+                </Box>
+                <Box
+                    sx={{
+                        backgroundColor: theme.palette.secondary.main,
+                        width: '50vw',
+                        marginBottom: '10px',
+                        color: 'white',
+                        width: '100px',
+                        padding: '10px',
+                        borderRadius: '4px'
+                    }}>
+                    Uploaded By
+                </Box>
+                <Box
+                    sx={{
+                        backgroundColor: 'white',
+                        width: '50vw',
+                        marginBottom: '40px',
+                        padding: '10px',
+                        borderRadius: '4px'
+                    }}>
+                    {algo.uploadedBy}
+                </Box>
+                <Box
+                    sx={{
+                        backgroundColor: theme.palette.secondary.main,
+                        width: '50vw',
+                        marginBottom: '10px',
+                        color: 'white',
+                        width: '80px',
+                        padding: '10px',
+                        borderRadius: '4px'
+                    }}>
+                    Descrption
+                </Box>
+                <Box
+                    sx={{
+                        backgroundColor: 'white',
+                        width: '50vw',
+                        marginBottom: '40px',
+                        padding: '10px',
+                        borderRadius: '4px'
+                    }}>
+                    {algo.description}
+                </Box>
+                <Box
+                    sx={{
+                        backgroundColor: theme.palette.secondary.main,
+                        width: '50vw',
+                        marginBottom: '10px',
+                        color: 'white',
+                        width: '80px',
+                        padding: '10px',
+                        borderRadius: '4px'
+                    }}>
+                    Parameters
+                </Box>
+
+                {algo?.parameters?.map(({ name, description }, index) => <Box
+                    key={index}
+                    sx={{
+                        backgroundColor: 'white',
+                        width: '50vw',
+                        marginBottom: '10px',
+                        padding: '10px',
+                        borderRadius: '4px'
+                    }}><Typography fontWeight={600} display={'inline'}>Name</Typography>: {name} <br /><Typography fontWeight={600} display={'inline'}>Description</Typography>: {description}</Box>)}
+
+                <Box
+                    sx={{
+                        backgroundColor: theme.palette.secondary.main,
+                        width: '50vw',
+                        marginBottom: '10px',
+                        color: 'white',
+                        width: '50px',
+                        padding: '10px',
+                        marginTop: '40px',
+                        borderRadius: '4px'
+                    }}>
+                    Cases
+                </Box>
+
+                {algo?.cases?.map(({ value }, index) => <Box
+                    key={index}
+                    sx={{
+                        backgroundColor: 'white',
+                        width: '50vw',
+                        marginBottom: '10px',
+                        padding: '10px',
+                        borderRadius: '4px'
+                    }}> {value} </Box>)}
+                     <Button 
+                     sx={{
+                        marginTop:'40px',
+                        backgroundColor: theme.palette.secondary.main,
+                        color:'white',
+                        display:'flex',
+                        postion: 'relative',
+                        left:'22vw'
+                     }}
+                    onClick={()=> navigate(-1)} > Go back</Button>
             </Box>
 
-            {algo?.parameters?.map(({ name, description }, index) => <Box
-                sx={{
-                    backgroundColor: 'white',
-                    width: '50vw',
-                    marginBottom: '10px',
-
-                }}>name: {name}  Description: {description}</Box>)}
-
-            <Box
-                sx={{
-                    backgroundColor: theme.palette.secondary.main,
-                    width: '50vw',
-                    marginBottom: '10px',
-                    color: 'white',
-                    width:'50px',
-                }}>
-                Cases
-            </Box>
-
-            {algo?.cases?.map(({ value }, index) => <Box
-                sx={{
-                    backgroundColor: 'white',
-                    width: '50vw',
-                    marginBottom: '10px',
-                }}> {value} </Box>)}
-  </box>
+            
         </Container>
 
     )

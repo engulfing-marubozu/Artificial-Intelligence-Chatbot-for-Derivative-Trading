@@ -7,7 +7,7 @@
 // import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { chain } from "../index.js";
 const chatbotResponse = async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
 
     const { query } = req.body
     try{

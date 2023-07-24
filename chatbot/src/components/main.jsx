@@ -36,27 +36,33 @@ let Main = () => {
             containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
         }
 
+try {
+    let botResponse = await getBotResponse(userInput);
+    let userMessage = {
+        content: userInput,
+        sender: 'user',
+    };
+    let botMessage = {
+        content: botResponse,
+        sender: 'bot',
+    };
 
-        let botResponse = await getBotResponse(userInput);
-        let userMessage = {
-            content: userInput,
-            sender: 'user',
-        };
-        let botMessage = {
-            content: botResponse,
-            sender: 'bot',
-        };
+    let conversation = {
+        userMessage,
+        botMessage,
+    };
 
-        let conversation = {
-            userMessage,
-            botMessage,
-        };
+    setMessages((prevMessages) => [...prevMessages, conversation]);
 
-        setMessages((prevMessages) => [...prevMessages, conversation]);
+    if (containerRef.current) {
+        containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    }
+} catch (error) {
 
-        if (containerRef.current) {
-            containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
-        }
+    console.log("hello boi")
+    alert('Oops, something went wrong. Click OK to refresh the page.')
+    window.location.reload ();
+}
 
     };
 
@@ -219,13 +225,13 @@ let Main = () => {
                                             margin: '22px 15px 0px 0px',
                                             borderRadius: '15px'
                                         }}></div>
-                                    <Typography
+                                    <Box
                                         sx={{
                                             width: '700px',
                                             padding: '25px 0px 25px 0px',
                                         }}
                                         className="typing-indicator"
-                                    > <Box class="typing-effect"><Box class="dot-1"><FiberManualRecordIcon sx={{ fontSize: '7px' }} /></Box><Box class="dot-2"><FiberManualRecordIcon sx={{ fontSize: '7px' }} /></Box><Box class="dot-3"><FiberManualRecordIcon sx={{ fontSize: '7px' }} /></Box></Box></Typography>
+                                    > <Box className="typing-effect"><Box className="dot-1"><FiberManualRecordIcon sx={{ fontSize: '7px' }} /></Box><Box className="dot-2"><FiberManualRecordIcon sx={{ fontSize: '7px' }} /></Box><Box className="dot-3"><FiberManualRecordIcon sx={{ fontSize: '7px' }} /></Box></Box></Box>
                                 </div>
                             </div>
                         </div>
