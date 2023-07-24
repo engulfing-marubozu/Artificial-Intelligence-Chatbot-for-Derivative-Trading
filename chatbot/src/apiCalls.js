@@ -5,7 +5,7 @@ const getResponse = async (query)=>{
         try {
             const response =
            await axios.post(
-             `http://localhost:5000/chatbotResponse`,
+             `${process.env.REACT_APP_API_URL}/chatbotResponse`,
              { query:query},
            );
             resolve(response.data);

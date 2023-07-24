@@ -3,7 +3,7 @@ const saveAlgo = async( obj )=>{
     try {
         const response =
        await axios.post(
-         `http://localhost:5000/saveAlgo`,
+         `${process.env.REACT_APP_API_URL}/saveAlgo`,
          { AlgoObject: obj},
        );
      
@@ -22,7 +22,7 @@ const  getUserSpecificAlgo =(userName)=>{
     try {
       const response =
      await axios.get(
-       `http://localhost:5000/getAlgoList`,
+       `${process.env.REACT_APP_API_URL}/getAlgoList`,
        {params:{userName:userName} },
      );
 
@@ -39,7 +39,7 @@ const  getSpecificAlgo =(id)=>{
     try {
       const response =
      await axios.get(
-       `http://localhost:5000/sendSpecificAlgo`,
+       `${process.env.REACT_APP_API_URL}/sendSpecificAlgo`,
        {params:{id:id} },
      );
      
