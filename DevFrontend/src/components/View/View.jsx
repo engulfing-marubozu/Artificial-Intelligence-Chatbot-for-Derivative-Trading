@@ -124,7 +124,7 @@ const View = () => {
                     }
                     } >View</Button>
                   <Button key={index + 1003}
-                    onClick={() => alert("Upcoming feature")}
+                    onClick={() => navigate(`/edit/${algo._id}`)}
                     variant='contained' sx={{
                       borderRadius: 2,
                       bgcolor

@@ -4,6 +4,7 @@ import  Contribute  from './components/contribute/main';
 import View from './components/View/View';
 import { ThemeProvider, createTheme, Button } from '@mui/material';
 import ViewSpecificAlgo from './components/View/ViewSpecificAlgo';
+import EditSpecificAlgo from './components/View/EditSpecificAlgo';
 function App() {
   const theme = createTheme({
     palette: {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/view" element={<View />} />
           <Route path="/view/:algoId?"element={<ViewSpecificAlgo />} />
+          <Route path="/edit/:algoId?"element={<EditSpecificAlgo />} />
           <Route path="/contribute" element={<Contribute/>} />
         </Routes>
    

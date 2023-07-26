@@ -1,12 +1,18 @@
 
-import React, { useState, useRef } from 'react'
+import React, { useState,  useEffect } from 'react'
 import { Button, Card, TextField, Typography, Container, useTheme, Input, Box, styled } from '@mui/material'
-import { green } from '@mui/material/colors';
 
 
-export const Contribute2 = (props) => {
+const  Contribute2 = ({desc, handleContribute2}) => {
+    useEffect(() => {
+        if (desc !== undefined) {
+          setdescription(desc);
+        }
+      }, [desc]);
+    
   const [description, setdescription] = useState('');
-  const [isSaved, setisSaved] = useState(false);
+  const [isSaved, setisSaved] = useState(true);
+  
   const blue = {
     100: '#DAECFF',
     200: '#b6daff',
@@ -30,7 +36,7 @@ export const Contribute2 = (props) => {
   };
 
   const theme = useTheme();
-
+  
   const StyledTextField = styled(TextField)(
     ({ theme }) => `
     width: 50vw;
@@ -48,24 +54,8 @@ export const Contribute2 = (props) => {
   );
   return (
 
-    <Container maxWidth="sm"
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '100vh',
-        backgroundColor: theme.palette.primary.main,
-        maxWidth: '100vw',
-        flexDirection: 'column'
-      }}>
-      <form
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }}
-      >
+
+      <div >
         <Box
           sx={{
             width: '50vw',
@@ -80,7 +70,7 @@ export const Contribute2 = (props) => {
 
           }}
         > <Typography
-          sx={{ color: 'white' }} >Please describe your algorithm</Typography></Box>
+          sx={{ color: 'white' }} >Description</Typography></Box>
         <TextField
           sx={{
             width: '50vw',
@@ -98,7 +88,7 @@ export const Contribute2 = (props) => {
             setdescription(e.target.value);
           }}
           rows={10}
-          variant="outlined" disabled={isSaved} required aria-label="empty textarea" placeholder="Description" />
+          variant="outlined" disabled={isSaved} required  aria-label="empty textarea" placeholder="Description" />
         <Box
           sx={{
             width: '100%'
@@ -107,7 +97,10 @@ export const Contribute2 = (props) => {
             if (description == '')
               alert("Description can't be empty");
             else
-              setisSaved(!isSaved)
+              {
+                setisSaved(!isSaved);
+                handleContribute2(description);
+              }
           }
           } variant='contained' sx={{
             borderRadius: 2,
@@ -118,26 +111,11 @@ export const Contribute2 = (props) => {
             }
           }
           } >{isSaved ? "Edit" : "Save"}</Button>
-          <Button onClick={() => {
-            if (!isSaved)
-              alert("Please save your description before proceeding.");
-            else
-              props.handleContribute2(description);
-          }
-          } variant='contained' sx={{
-            borderRadius: 2,
-            bgcolor
-              : theme.palette.secondary.main, marginRight: '10px',
-            '&:hover': {
-              backgroundColor: '#203864', // Set your desired hover color
-            }
-          }
-          } >Next</Button>
         </Box>
-      </form >
-    </Container>
+      </div >
 
-
-  )
+ )
 
 }
+
+export default Contribute2

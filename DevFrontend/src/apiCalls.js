@@ -13,8 +13,17 @@ const saveAlgo = async( obj )=>{
 }
 
 
-const editAlgo=(async)=>{
-
+const editAlgo=async (obj)=>{
+  try {
+    const response =
+   await axios.post(
+     `${process.env.REACT_APP_API_URL}/editAlgo`,
+     { AlgoObject: obj},
+   );
+ 
+ } catch (err) {
+   console.log(err);
+ }
 }
 
 const  getUserSpecificAlgo =(userName)=>{
@@ -50,4 +59,6 @@ const  getSpecificAlgo =(id)=>{
    }
   });
 }
-export {saveAlgo, getUserSpecificAlgo, getSpecificAlgo}
+
+
+export {saveAlgo, getUserSpecificAlgo, getSpecificAlgo, editAlgo}

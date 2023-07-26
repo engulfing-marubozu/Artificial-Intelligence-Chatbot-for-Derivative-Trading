@@ -14,7 +14,7 @@ import { VectorStoreRetrieverMemory } from "langchain/memory";
 import { LLMChain } from "langchain/chains";
 import { PromptTemplate } from "langchain/prompts";
 import { OpenAI } from "langchain/llms/openai";
-import { MemoryVectorStore } from "langchain/vectorstores/memory";
+
 
 dotenv.config();
 
@@ -45,8 +45,8 @@ await pinecone.init({
   environment: process.env.PINECONE_ENVIRONMENT,
 });
 //Create docs with a loader
-//const loader = new JSONLoader("./nlpModelTrainingData/a.json");
-const loader = new TextLoader("./nlpModelTrainingData/a.txt")
+const loader = new JSONLoader("./nlpModelTrainingData/a.json");
+//const loader = new TextLoader("./nlpModelTrainingData/a.txt")
 // await pinecone.createIndex({
 //   createRequest: {
 //     name: "algo-embeddings",
@@ -57,9 +57,9 @@ const docs = await loader.load();
 //console.log(docs);
 const pineconeIndex = pinecone.Index("algo-embeddings");
 // //Load the docs into the vector store
-// await PineconeStore.fromDocuments(docs, new OpenAIEmbeddings(), {
-//   pineconeIndex,
-// });
+await PineconeStore.fromDocuments(docs, new OpenAIEmbeddings(), {
+  pineconeIndex,
+});
 
 
 //auto load routes and middlewares
@@ -89,12 +89,11 @@ const prompt =
   PromptTemplate.fromTemplate(`The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know.
 Relevant pieces of previous conversation:
 {history}
-
 (You do not need to use these pieces of information if not relevant)
-
 Current conversation:
 Human: {input}
 AI:`);
+
  const chain = new LLMChain({ llm: model, prompt, memory });  
 
 

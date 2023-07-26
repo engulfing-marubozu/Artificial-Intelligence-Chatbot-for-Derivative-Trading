@@ -3,7 +3,7 @@ import Contribute1 from './nameAlgo';
 import { Contribute2 } from './description.jsx';
 import Contribute3 from './parameters.jsx.jsx';
 import Contribute4 from './cases';
-import Success from './success';
+import Success from '../success';
 import {saveAlgo} from '../../apiCalls'
 const Contribute = () => {
   const globalObject = {
